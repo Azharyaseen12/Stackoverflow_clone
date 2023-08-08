@@ -1,47 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-{% comment %} <body style="margin-top: 100px;">
-    {% if profile %}
-    <img
-      src="{{ user.profile.image.url }}"
-      style="
-        border: 3px solid black;
-        border-radius: 100px;
-        height: 200px;
-        width: 200px;
-      "
-      alt="User-Profile-Image"
-    />
-    <p>{{ user.profile.bio }}</p>
-    <h6>{{ user.profile.phone }}</h6>
-    <h6>{{ user.email }}</h6>
-    <h6>{{ user.username }}</h6>
-
-    <a class="btn btn-primary" href="{% url 'update_profile' user.id %}">Update profile</a>
-    {% else %}
-    you didt created your profile yet
-    <a href="{% url 'createprofile' user.id %}"  class="btn btn-primary">create profile</a>
-    {% endif %}
-    <h2>Asked questions</h2>
-    {% if question_asked %}
-    {% for question in question_asked %}
-    <div
-      class="container my-4"
-      style="
-        border: 2px solid black;
-        border-radius: 20px;
-        background-color: rgb(245, 181, 43);
-      "
-    >
-     <a href="{% url 'detail' question.id %}"> 
-      <h3 class="text-primary">question: {{ question.title }}</h3>
-    </a>
-      <p>content: {{ question.content }}</p>
-    </div>
-    {% endfor %}
-    {% endif %}
-  
-  </body> {% endcomment %}
 {% if profile %} 
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
@@ -105,8 +63,10 @@
                     </div>  
                   </div>    
                 </section>
-    
+                {% else %}
+                <p>nothing posted yet...</p>
                 {% endif %}
+
               </div>
               
             </div>
@@ -118,7 +78,7 @@
   {% else %}
   <div style="margin-top: 130px;">
   you didt created your profile yet
-    <a href="{% url 'createprofile' user.id %}"  class="btn btn-primary">create profile</a>
+    <a href="{% url 'createprofile' user.id %}"  class="btn btn-outline-dark">create profile</a>
   </div>
   {% endif %} 
   {% endblock content %}

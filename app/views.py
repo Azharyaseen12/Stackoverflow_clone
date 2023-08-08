@@ -6,6 +6,7 @@ from .models import *
 from django.utils import timezone
 from django.http import JsonResponse
 from django.urls import reverse
+from django.contrib import messages
 
 # Create your views here.
 
@@ -68,7 +69,7 @@ def create_profile(request,id):
 def profile(request, id): 
     user = get_object_or_404(User, pk= id)
     user_profile = User_profile.objects.filter(user=user.id)
-    question_asked = Questions.objects.filter(user=user.id) 
+    question_asked = Questions.objects.filter(user=user.id).order_by('-date_created')[:5]
     answers = Comment.objects.filter(name=user)
         
     return render(request , 'app/profile.html',{'profile':user_profile,'question_asked':question_asked,'answers':answers})
@@ -170,7 +171,8 @@ def LoginPage(request):
             login(request,user)
             return redirect('home')
         else:
-            return HttpResponse ("Username or Password is incorrect!!!")
+           messages.error(request, "invalid credentials")
+            
 
 
     return render (request,'app/login.html')

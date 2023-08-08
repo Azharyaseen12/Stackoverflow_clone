@@ -1,37 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-{% comment %} <section id="faq" class="faq">
-  <div class="container" style="margin-top: 100px;">  
-      <div class="" data-aos="fade-up" data-aos-delay="200">  
-        <div class="faq-container">
-          <div class="faq-item faq-active">
-            <h3><span class="num"></span> <span>the title of the question</span></h3>
-            <div class="faq-content">
-              <p>uploaded by: azhar yaseen</p>
-              <p>content</p>
-              <p class="text-right">
-                likes: 3 uploaded date: 126 1268368 172 
-              </p>
-              <a href="">
-                <button type="button" class="btn btn-danger">like</button>
-              </a>
-              <a href="">
-                <button type="button" class="btn btn-primary">answer question</button>
-              </a>
-              <a href="">
-                <button type="button" class="btn btn-primary">delete question</button>
-              </a>
-            </div>
-          </div> 
-        </div>  
-      </div>
-    </div>  
-  </div>    
-</section> {% endcomment %}
-
-
-
 <body style="margin-top: 100px;">
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-danger my-4">
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+   </div>
+  {% endfor %}
+  {% endif %}
     <header>
       <div>
         <h1>question detail Page</h1>

@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="h-100 h-custom my-6" style="background-color: #eee;" >
+<section class="h-100 h-custom" style="background-color: #eee;" >
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-danger my-4">
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+   </div>
+  {% endfor %}
+  {% endif %}
   <div class="container h-100" style="margin-top:90px;">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
@@ -11,6 +18,7 @@
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                   Login User
                 </p>
+                
                 <form class="mx-1 mx-md-4" method="post" action="{% url 'login' %}">
                   {% csrf_token %}
                   <div class="d-flex flex-row align-items-center mb-4">
@@ -22,6 +30,7 @@
                         class="form-control"
                         name="username"
                         placeholder="username"
+                        required
                       />
                     </div>
                   </div>
@@ -34,12 +43,13 @@
                         class="form-control"
                         name="pass"
                         placeholder="password"
+                        required
                       />
                     </div>
                   </div>
                   
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" class="btn btn-primary btn-lg">
+                    <button type="submit" class="btn btn-outline-dark">
                       login
                     </button>
                   </div>
@@ -65,58 +75,4 @@
     </div>
   </div>
 </section>
-
-
-
 {% endblock content %}
-
-
-
-<body style="margin-top: 100px;">
-  <div
-    class="container my-4"
-    style="
-      border: 2px solid rgb(59, 59, 99);
-      border-radius: 20px;
-      padding: 50px;
-    "
-  >
-    <form method="post">
-      <h3 class="text-center text-primary">Login Here</h3>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter Username"
-          id="username"
-          aria-placeholder="username"
-          name="username"
-        />
-      </div>
-
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Password"
-          id="password"
-          name="pass"
-        />
-      </div>
-
-      <div class="text-center">
-        <button class="btn btn-primary my-4" type="submit">Log In</button>
-      </div>
-      <!-- <input type="button" value=""> -->
-      <!-- <div class="social">
-        <div class="go"><i class="fab fa-google"></i>  Google</div>
-        <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
-      </div> -->
-      <a href="{% url 'signup' %}">Create a account</a>
-    </form>
-  </div>
-  
-</body>
