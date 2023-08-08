@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+{% comment %} <section id="faq" class="faq">
+  <div class="container" style="margin-top: 100px;">  
+      <div class="" data-aos="fade-up" data-aos-delay="200">  
+        <div class="faq-container">
+          <div class="faq-item faq-active">
+            <h3><span class="num"></span> <span>the title of the question</span></h3>
+            <div class="faq-content">
+              <p>uploaded by: azhar yaseen</p>
+              <p>content</p>
+              <p class="text-right">
+                likes: 3 uploaded date: 126 1268368 172 
+              </p>
+              <a href="">
+                <button type="button" class="btn btn-danger">like</button>
+              </a>
+              <a href="">
+                <button type="button" class="btn btn-primary">answer question</button>
+              </a>
+              <a href="">
+                <button type="button" class="btn btn-primary">delete question</button>
+              </a>
+            </div>
+          </div> 
+        </div>  
+      </div>
+    </div>  
+  </div>    
+</section> {% endcomment %}
+
+
+
+<body style="margin-top: 100px;">
+    <header>
+      <div>
+        <h1>question detail Page</h1>
+      </div>
+    </header>
+    <div
+      class="container my-4"
+      style="
+        border: 2px solid black;
+        border-radius: 20px;
+        background-color: rgb(245, 181, 43);
+      "
+    >
+      <h3 class="text-primary text-center">question: {{ question.title }}</h3>
+      <p>uploaded by: {{ question.user }}</p>
+      <p>content: {{ question.content }}</p>
+      <p class="text-right">
+        likes: {{ question.likes.count }} uploaded date: {{question.date_created }}
+      </p>
+      <a href="{% url 'like' question.id %}">
+        <button type="button" class="btn btn-primary">like</button>
+      </a>
+      <a href="{% url 'answer' question.id %}">
+        <button type="button" class="btn btn-primary">answer question</button>
+      </a>
+      <a href="{% url 'delete_question' question.id %}">
+        <button type="button" class="btn btn-primary">delete question</button>
+      </a>
+    </div>
+
+    <h3 class="text-center">answers</h3>
+    {% if answer %}
+    {% for answer in answer %}
+    <div
+      class="container my-4"
+      style="border: 2px solid black; border-radius: 20px"
+    >
+      <p>answered by:{{ answer.name }}</p>
+      <p>answer:{{ answer.content }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    Not answer yet
+    {% endif %}
+
+  </body>
+{% endblock content %}

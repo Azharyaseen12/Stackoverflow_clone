@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}  
+  <section id="faq" class="faq">
+    <div class="container" style="margin-top: 100px;">  
+        <div class="" data-aos="fade-up" data-aos-delay="200">  
+          <div class="faq-container">
+            {% for question in question %}
+            <div class="faq-item faq-active">
+              <a href="{% url 'detail' question.id %}"> <h3><span class="num"></span> <span>{{ question.title }}</span></h3></a>
+              <div class="faq-content">
+                <p>{{ question.content }}</p>
+              </div>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div> 
+            {% endfor %} 
+          </div>  
+        </div>
+      </div>  
+    </div>    
+  </section>
+  
+{% endblock content %}
+ {% comment %} <div style="margin-top: 100px;">
+    {% for question in question %}
+    <div
+      class="container my-4"
+      style="
+        border: 2px solid black;
+        border-radius: 20px;
+        background-color: rgb(245, 181, 43);
+      "
+    >
+     <a href="{% url 'detail' question.id %}"> 
+      <h3 class="text-primary">question: {{ question.title }}</h3>
+    </a>
+      <p>content: {{ question.content }}</p>
+    </div>
+    
+    {% endfor %}
+  </div> {% endcomment %}

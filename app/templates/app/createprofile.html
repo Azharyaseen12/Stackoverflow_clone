@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="margin-top: 100px;">
+  <h2>Create Profile</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="bio">Bio:</label>
+    <textarea name="bio" id="bio" rows="4" cols="50"></textarea><br>
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" id="phone"><br>
+    <label for="image">Profile Picture:</label>
+    <input type="file" name="image" id="image"><br>
+    <button type="submit">Create Profile</button>
+  </form>
+</div>
+  {% endblock %}
