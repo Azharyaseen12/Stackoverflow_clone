@@ -42,7 +42,8 @@ def update_profile(request,id):
         user_profile.bio = new_bio
         user_profile.phone = new_phone
         user_profile.image = new_image
-        user_profile.save()    
+        user_profile.save()  
+
         return redirect('profile',user.id)
 
     return render(request , 'app/update_profile.html')
@@ -88,6 +89,7 @@ def answer(request, question_id):
         content = request.POST.get('content')
         my_answer = Comment(name=name,content=content,question=question)
         my_answer.save()
+        messages.success(request, "your answer has been posted")
         return redirect('detail',question.id)
     return render(request, 'app/answer.html')
 
@@ -117,7 +119,8 @@ def ask_question(request):
         user = request.user
         post_question = Questions(title=title, content=content, user=user)
         post_question.save()
-        return redirect('home')
+        messages.success(request, "your question has been posted successfully")
+        return redirect('questions')
           
     return render(request, 'app/ask_question.html')
     
@@ -130,6 +133,7 @@ def contact(request):
         message = request.POST.get('message')
         contact_form = Contact(name=name,email=email,subject=subject,message=message)
         contact_form.save()
+        messages.success(request, "Your message send to the admin we will soon contact back to you")
     return render(request, 'app/contact.html')
 
 @login_required(login_url='login')
@@ -152,11 +156,12 @@ def SignupPage(request):
         pass2=request.POST.get('password2')
 
         if pass1!=pass2:
-            return HttpResponse("Your password and confrom password are not Same!!")
+            messages.error(request, "password does not match with confirm")
         else:
 
             my_user=User.objects.create_user(uname,email,pass1)
             my_user.save()
+            messages.success(request, "your account has been created now you can login to your account")
             return redirect('login')
         
 
@@ -171,7 +176,7 @@ def LoginPage(request):
             login(request,user)
             return redirect('home')
         else:
-           messages.error(request, "invalid credentials")
+           messages.warning(request, "invalid credentials")
             
 
 
@@ -179,4 +184,5 @@ def LoginPage(request):
 
 def LogoutPage(request):
     logout(request)
+    messages.success(request, "you are loged out successfully")
     return redirect('login')

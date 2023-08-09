@@ -3,8 +3,8 @@
 <body style="margin-top: 100px;">
   {% if messages %}
   {% for message in messages %}
-  <div class="alert alert-danger my-4">
-    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+  <div {% if message.tags %}  class="alert alert-{{ message.tags }} my-4"{% endif %}>
+    <li class="">{{ message }}</li>
    </div>
   {% endfor %}
   {% endif %}

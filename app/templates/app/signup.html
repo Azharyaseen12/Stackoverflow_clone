@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="h-100 h-custom my-6" style="background-color: #eee;" >
+  {% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger my-4">
+  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+ </div>
+{% endfor %}
+{% endif %}
   <div class="container h-100" style="margin-top:90px;">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">

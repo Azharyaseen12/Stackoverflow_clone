@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section id="contact" class="contact" style="margin-top: 80px;">
-
+<section id="contact" class="contact" >
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-success my-4">
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+   </div>
+  {% endfor %}
+  {% endif %}
     <!--  Section Title -->
-    <div class="container section-title" data-aos="fade-up">
+    <div class="container section-title" data-aos="fade-up" style="margin-top: 80px;">
       <h2>Contact</h2>
       <p>Free free to contact with us</p>
     </div><!-- End Section Title -->
