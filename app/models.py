@@ -27,6 +27,7 @@ class Comment(models.Model):
 class User_profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     bio = models.CharField(max_length=1000)
+    city = models.CharField(max_length=1000, default="lahore")
     phone = models.IntegerField(null=True, blank=True)
     image = models.ImageField( default='default.jpg', upload_to='profile_pic' )
 

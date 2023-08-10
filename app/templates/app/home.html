@@ -1,4 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+{% if messages %}
+{% for message in messages %}
+<div style="margin-top:100px;" {% if message.tags %}  class="alert alert-{{ message.tags }}"{% endif %}>
+  <li class=""> {{ message }}</li>
+ </div>
+{% endfor %}
+{% endif %}
 <section id="hero" class="hero">
   <img src="{% static 'assets/img/hero-bg.jfif' %}" alt="" data-aos="fade-in" />
 

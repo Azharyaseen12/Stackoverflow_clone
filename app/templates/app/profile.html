@@ -15,20 +15,32 @@
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ user.username }}</h5>
-                <p>Lahore</p>
+                <p>{{ user.profile.city}}</p>
               </div>
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
-                <div>
+                <div style="border: 1px solid black; border-radius: 10px; padding: 10px;">
                   <p class="mb-1 h5">{{ question_asked|length }}</p>
                   <p class="small text-muted mb-0">Posts</p>
                 </div>
-                <div class="px-3">
+                <a href="{% url 'posted_answers' user.id %}">
+                <div class="px-3 mx-2" style="border: 1px solid black; border-radius: 10px; padding: 10px;">
                   <p class="mb-1 h5">{{ answers|length }}</p>
                   <p class="small text-muted mb-0">answers</p>
                 </div>
-              </div>
+              </a>
+                <a href="{% url 'liked_post' user.id %}">
+                <div class="px-3" style="border: 1px solid black; border-radius: 10px; padding: 10px;">
+                  <p class="mb-1 h5">{{ total_likes }}</p>
+                  <p class="small text-muted mb-0">posts like</p>
+                </div> 
+                </a>  
+                <div class="px-3 mx-2" style="border: 1px solid black; border-radius: 10px; padding: 10px; background-color: #ccdbeb;">
+                  <p class="mb-1 h5">{{ total_likes_on_yourpost }}</p>
+                  <p class="small text-muted mb-0">likes on your post</p>
+                </div>              
+              </div>            
             </div>
             <div class="card-body p-4 text-black">
               <div class="mb-5">
