@@ -8,7 +8,7 @@
             <div class="faq-container">
               {% for answers in answers %}
               <div class="faq-item faq-active">
-                <a href=""> <h3><span class="num"></span> <span>{{ answers.question.title }}</span></h3></a>
+                <a href="{% url 'detail' answers.question.id %}"> <h3><span class="num"></span> <span>{{ answers.question.title }}</span></h3></a>
                 <div class="faq-content">
                   <p>{{ answers.question.content }}</p>
                 </div>

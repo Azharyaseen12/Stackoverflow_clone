@@ -26,8 +26,7 @@ def delete_question(request, id):
 def search(request):
     if request.method == 'GET':
         search = request.GET.get('search')
-        results = Questions.objects.filter(title__icontains=search)
-        
+        results = Questions.objects.filter(title__icontains=search)        
         return render(request , 'app/search_results.html',{'results':results})
         
     
@@ -50,10 +49,10 @@ def update_profile(request,id):
         if new_image:
             user_profile.image = new_image
         user_profile.save()  
-
         return redirect('profile',user.id)
-
     return render(request , 'app/update_profile.html')
+
+
 
 @login_required(login_url='login')
 def create_profile(request,id): 
@@ -71,8 +70,9 @@ def create_profile(request,id):
             image=image
         )
         return redirect('profile',id)
-
     return render(request , 'app/createprofile.html')
+
+
 
 @login_required(login_url='login')
 def liked_post(request,id):
@@ -80,9 +80,10 @@ def liked_post(request,id):
     posts_you_like = Questions.objects.filter(likes=user.id)
     return render(request, 'app/liked_post.html',{'posts_you_like':posts_you_like})
 
+
 @login_required(login_url='login')
 def posted_answers(request,id):
-    user = get_object_or_404(User, pk= id)   
+    user = get_object_or_404(User, pk= id)    
     answers = Comment.objects.filter(name=user)
     return render(request, 'app/posted_answers.html',{'answers':answers})
 
@@ -103,6 +104,7 @@ def detail(request, question_id):
     question = get_object_or_404(Questions, pk= question_id)
     answer = Comment.objects.filter(question=question.id)
     return render(request, 'app/question_detail.html' ,{'question':question, 'answer':answer})
+
 
 @login_required(login_url='login')
 def answer(request, question_id):
@@ -125,16 +127,15 @@ def like(request, question_id):
             question.likes.remove(user)
             question.save()
             liked = False
-            return redirect('detail',question.id)
-            
+            return redirect('detail',question.id)            
         else:
             question.likes.add(user)
             question.save()
-            liked = True
-           
-        return redirect('detail',question.id)
-        
+            liked = True           
+        return redirect('detail',question.id)        
     return redirect(request,'detail')    
+
+
 
 @login_required(login_url='login')
 def ask_question(request):
@@ -145,9 +146,12 @@ def ask_question(request):
         post_question = Questions(title=title, content=content, user=user)
         post_question.save()
         messages.success(request, "your question has been posted successfully")
-        return redirect('questions')
-          
+        return redirect('questions')          
     return render(request, 'app/ask_question.html')
+
+
+
+
     
 @login_required(login_url='login')
 def contact(request):
@@ -161,17 +165,21 @@ def contact(request):
         messages.success(request, "Your message send to the admin we will soon contact back to you")
     return render(request, 'app/contact.html')
 
+
+
 @login_required(login_url='login')
 def questions(request):   
-    question = Questions.objects.all().order_by('-date_created')    
-    
+    question = Questions.objects.all().order_by('-date_created')      
     return render (request,'app/questions.html', { 'question':question }) 
+
+
 
 @login_required(login_url='login')
 def HomePage(request):   
-    question = Questions.objects.all().order_by('-date_created')    
-    
+    question = Questions.objects.all().order_by('-date_created')        
     return render (request,'app/home.html')
+
+
 
 def SignupPage(request):
     if request.method=='POST':
@@ -179,11 +187,9 @@ def SignupPage(request):
         email=request.POST.get('email')
         pass1=request.POST.get('password1')
         pass2=request.POST.get('password2')
-
         if pass1!=pass2:
             messages.error(request, "password does not match with confirm")
         else:
-            # Check if a user with the same username or email already exists
             if User.objects.filter(username=uname).exists():
                 messages.error(request, "Username already exists.")
             elif User.objects.filter(email=email).exists():
@@ -191,10 +197,10 @@ def SignupPage(request):
             else:
                 my_user = User.objects.create_user(username=uname, email=email, password=pass1)
                 messages.success(request, "Your account has been created. You can now log in.")
-                return redirect('login')
-        
-
+                return redirect('login')      
     return render (request,'app/signup.html')
+
+
 
 def LoginPage(request):
     if request.method=='POST':
@@ -205,11 +211,10 @@ def LoginPage(request):
             login(request,user)
             return redirect('home')
         else:
-           messages.warning(request, "invalid credentials")
-            
-
-
+           messages.warning(request, "invalid credentials")         
     return render (request,'app/login.html')
+
+
 
 def LogoutPage(request):
     logout(request)
