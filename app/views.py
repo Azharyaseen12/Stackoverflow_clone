@@ -39,9 +39,12 @@ def update_profile(request,id):
         new_bio = request.POST.get('bio')    
         new_phone = request.POST.get('phone')   
         new_image = request.FILES.get('image') if 'image' in request.FILES else None
-        user_profile.bio = new_bio
-        user_profile.phone = new_phone
-        user_profile.image = new_image
+        if new_bio:
+            user_profile.bio = new_bio
+        if new_phone:
+            user_profile.phone = new_phone
+        if new_image:
+            user_profile.image = new_image
         user_profile.save()  
 
         return redirect('profile',user.id)
