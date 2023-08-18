@@ -4,10 +4,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.db.models import Count
-from django.utils import timezone
-from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -25,10 +24,10 @@ def delete_question(request, id):
 @login_required(login_url='login')
 def search(request):
     if request.method == 'GET':
-        search = request.GET.get('search')
-        results = Questions.objects.filter(title__icontains=search)        
-        return render(request , 'app/search_results.html',{'results':results})
-        
+        search = request.GET.get('search')        
+        results = Questions.objects.filter(title__icontains=search).order_by('-date_created')
+     
+        return render(request, 'app/search_results.html', {'results': results})
     
 
 @login_required(login_url='login')
@@ -79,14 +78,21 @@ def create_profile(request,id):
 def liked_post(request,id):
     user = get_object_or_404(User, pk= id) 
     posts_you_like = Questions.objects.filter(likes=user.id)
-    return render(request, 'app/liked_post.html',{'posts_you_like':posts_you_like})
+    paginator = Paginator(posts_you_like, 5)
+    page_number = request.GET.get("page") 
+    page_obj = paginator.get_page(page_number) 
+    return render(request, 'app/liked_post.html',{'posts_you_like':posts_you_like,'page_obj': page_obj})
 
 
 @login_required(login_url='login')
 def posted_answers(request,id):
     user = get_object_or_404(User, pk= id)    
     answers = Comment.objects.filter(name=user)
-    return render(request, 'app/posted_answers.html',{'answers':answers})
+    paginator = Paginator(answers, 5)
+    page_number = request.GET.get("page") 
+    page_obj = paginator.get_page(page_number) 
+
+    return render(request, 'app/posted_answers.html',{'answers':answers,'page_obj': page_obj})
 
 
 
@@ -172,8 +178,11 @@ def contact(request):
 
 @login_required(login_url='login')
 def questions(request):   
-    question = Questions.objects.all().order_by('-date_created')      
-    return render (request,'app/questions.html', { 'question':question }) 
+    question = Questions.objects.all().order_by('-date_created')  
+    paginator = Paginator(question, 5)
+    page_number = request.GET.get("page") 
+    page_obj = paginator.get_page(page_number)    
+    return render (request,'app/questions.html', { 'question':question ,'page_obj': page_obj}) 
 
 
 

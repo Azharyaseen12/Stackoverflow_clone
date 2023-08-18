@@ -12,7 +12,7 @@
      
         <div class="" data-aos="fade-up" data-aos-delay="200">  
           <div class="faq-container">
-            {% for question in question %}
+            {% for question in page_obj %}
             <div class="faq-item faq-active">
               <a href="{% url 'detail' question.id %}"> <h3><span class="num"></span> <span>{{ question.title }}</span></h3></a>
               <div class="faq-content">
@@ -21,6 +21,24 @@
               <i class="faq-toggle bi bi-chevron-right"></i>
             </div> 
             {% endfor %} 
+            <div class="pagination">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page=1" class="btn btn-outline-dark">&laquo; first</a>
+                      <a href="?page={{ page_obj.previous_page_number }}"  class="btn btn-outline-dark">previous</a>
+                  {% endif %}
+                  
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+                  
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}"  class="btn btn-outline-dark">next</a>
+                      <a href="?page={{ page_obj.paginator.num_pages }}"  class="btn btn-outline-dark">last &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
+          
           </div>  
         </div>
       </div>  

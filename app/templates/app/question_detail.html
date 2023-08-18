@@ -81,7 +81,10 @@
           <div class="container" style="background-color: rgba(255, 235, 209, 0.808); padding: 5px; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px 0px; border-radius: 20px;" >
               <h3 id="fh3">{{question.title}}</h3>
               <hr>
-              <h6 id="fh6">{{ question.content|safe }}</h6>              
+              
+                <h6 id="fh6"><xmp>{{ question.content|safe }}</xmp></h6> 
+            
+                           
               {% if question.image.url %}
               <img src="{{ question.image.url }}" style="width: 100%; height: 300px;" alt="not uploaded any image">
               {% endif %}
@@ -107,7 +110,7 @@
                   <h3>No Answers yet... 
               {% else %}
                   {% for comment in question.comment.all %}
-                      <h3 style="font-weight: normal; font-size: 15px;">{{comment.content|safe}}</h3>
+                      <h3 style="font-weight: normal; font-size: 15px; border:1px solid black; border-radius:20px;"><xmp>{{comment.content|safe}}</xmp></h3>
                       <h3 style="font-size: 10px;">Answered by: <i><b class="text-danger">{{comment.name}}</b> - On: {{comment.date_created|date:"j F, Y"}}</i></h3>
                       <hr>  
                   {% endfor %}
