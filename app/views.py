@@ -62,6 +62,7 @@ def create_profile(request,id):
         city = request.POST.get('city')    
         phone = request.POST.get('phone')   
         image = request.FILES.get('image') if 'image' in request.FILES else None
+        
         user_profile = User_profile.objects.create(
             user=request.user,
             bio=bio,
@@ -143,7 +144,9 @@ def ask_question(request):
         title = request.POST.get('title')
         content = request.POST.get('content')
         user = request.user
-        post_question = Questions(title=title, content=content, user=user)
+        image = request.FILES.get('image') if 'image' in request.FILES else None
+        
+        post_question = Questions(title=title, content=content, user=user, image=image)        
         post_question.save()
         messages.success(request, "your question has been posted successfully")
         return redirect('questions')          

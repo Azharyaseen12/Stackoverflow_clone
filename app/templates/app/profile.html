@@ -3,6 +3,7 @@
 {% if profile %} 
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
+      
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-lg-9 col-xl-7">
           <div class="card">
@@ -11,7 +12,7 @@
                 <img src="{{ user.profile.image.url }}"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
-                  <a class="btn btn-outline-dark" style="z-index: 1;" href="{% url 'update_profile' user.id %}">Update profile</a>
+                 <a class="btn btn-outline-dark" style="z-index: 1;" href="{% url 'update_profile' user.id %}">Update profile</a>
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ user.username }}</h5>
@@ -20,23 +21,23 @@
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
-                <div style="border: 1px solid black; border-radius: 10px; padding: 10px;">
+                <div>
                   <p class="mb-1 h5">{{ question_asked|length }}</p>
                   <p class="small text-muted mb-0">Posts</p>
                 </div>
                 <a href="{% url 'posted_answers' user.id %}">
-                <div class="px-3 mx-2" style="border: 1px solid black; border-radius: 10px; padding: 10px;">
+                <div class="px-3 mx-2">
                   <p class="mb-1 h5">{{ answers|length }}</p>
                   <p class="small text-muted mb-0">answers</p>
                 </div>
               </a>
                 <a href="{% url 'liked_post' user.id %}">
-                <div class="px-3" style="border: 1px solid black; border-radius: 10px; padding: 10px;">
+                <div class="px-3">
                   <p class="mb-1 h5">{{ total_likes }}</p>
                   <p class="small text-muted mb-0">posts like</p>
                 </div> 
                 </a>  
-                <div class="px-3 mx-2" style="border: 1px solid black; border-radius: 10px; padding: 10px; background-color: #ccdbeb;">
+                <div class="px-3 mx-2">
                   <p class="mb-1 h5">{{ total_likes_on_yourpost }}</p>
                   <p class="small text-muted mb-0">likes on your post</p>
                 </div>              
@@ -93,3 +94,4 @@
   </div>
   {% endif %} 
   {% endblock content %}
+  

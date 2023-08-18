@@ -8,6 +8,7 @@ class Questions(models.Model):
     content = models.TextField()
     likes = models.ManyToManyField(User, related_name='like')
     date_created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(upload_to='question_pic', blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} - Question  {self.likes.count()} - likes'
