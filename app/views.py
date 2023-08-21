@@ -9,6 +9,23 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 
 # Create your views here.
+@login_required(login_url='login')
+def personel_chat(request):
+    current_user = request.user
+    users = User_profile.objects.all().exclude(user=current_user)
+    return render(request, "app/personel_chat.html" ,{'users':users})  
+
+
+@login_required(login_url='login')
+def chat_home(request):
+    user = request.user  
+    chat_messages = Chat_Messages.objects.all()
+    if request.method == 'POST':
+        msg = request.POST.get('message')
+        save_msage = Chat_Messages(user=user,message=msg)
+        save_msage.save()
+    return render(request, "app/chat.html",{'chat_messages':chat_messages})   
+
 
 @login_required(login_url='login')
 def delete_question(request, id):

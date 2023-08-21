@@ -20,5 +20,7 @@ urlpatterns = [
     path('search/',views.search,name='search'),
     path('delete_question/<int:id>',views.delete_question,name='delete_question'),
     path('contact/',views.contact,name='contact'),
+    path('chat/',views.chat_home,name='chat'),
+    path('personel_chat/',views.personel_chat,name='personel_chat'),
 
 ]

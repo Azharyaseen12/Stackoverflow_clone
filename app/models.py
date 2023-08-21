@@ -33,8 +33,7 @@ class User_profile(models.Model):
     image = models.ImageField( default='default.jpg', upload_to='profile_pic' )
 
     def __str__(self):
-        return f'{self.user.username} -profile'
-
+        return f'{self.user.username}'
 
 class Contact(models.Model):
     name = models.CharField( max_length=50)
@@ -45,4 +44,13 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
     
+class Chat_Messages(models.Model):
+    user = models.ForeignKey(User, related_name='user_chat', on_delete=models.CASCADE)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message
+    
+    
+
 

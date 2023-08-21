@@ -57,12 +57,14 @@
         <ul>
           <li><a href="{% url 'home' %}" class="active">Home</a></li>
           <li><a href="{% url 'ask_question' %}">Ask Question</a></li>
-          <li><a href="{% url 'questions' %}">Questions</a></li>  
-          {% block profile %}{% endblock profile %}
+          <li><a href="{% url 'questions' %}">Questions</a></li>
+          {% if user.is_authenticated %}  
+          <li><a href="{% url 'chat' %}">chat</a></li>  
+          {% endif %} 
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'profile' user.id %}">My Profile</a></li>
-                    {% endif %}        
+             {% endif %}        
         </ul>
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
