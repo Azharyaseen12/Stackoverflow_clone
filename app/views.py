@@ -35,8 +35,7 @@ def delete_question(request, id):
         question.delete()
         messages.success(request, "successfuly deleted the question")
         return redirect('home')
-    else:
-        return HttpResponse("you cannot delete this post")            
+                      
 
 @login_required(login_url='login')
 def search(request):
@@ -100,11 +99,20 @@ def liked_post(request,id):
     page_obj = paginator.get_page(page_number) 
     return render(request, 'app/liked_post.html',{'posts_you_like':posts_you_like,'page_obj': page_obj})
 
+@login_required(login_url='login')
+def user_posts(request,id):
+    user = get_object_or_404(User, pk= id) 
+    question_asked = Questions.objects.filter(user=user.id).order_by('-date_created')
+    paginator = Paginator(question_asked, 5)
+    page_number = request.GET.get("page") 
+    page_obj = paginator.get_page(page_number) 
+
+    return render(request, 'app/user_posts.html',{'question_asked':question_asked,'page_obj': page_obj})
 
 @login_required(login_url='login')
 def posted_answers(request,id):
     user = get_object_or_404(User, pk= id)    
-    answers = Comment.objects.filter(name=user)
+    answers = Answer.objects.filter(name=user)
     paginator = Paginator(answers, 5)
     page_number = request.GET.get("page") 
     page_obj = paginator.get_page(page_number) 
@@ -120,13 +128,13 @@ def profile(request, id):
     user_profile = User_profile.objects.filter(user=user.id)
     question_asked = Questions.objects.filter(user=user.id).order_by('-date_created')[:5]
     total_likes_on_yourpost = Questions.objects.filter(user=user).aggregate(total_likes=Count('likes'))['total_likes']
-    answers = Comment.objects.filter(name=user) 
+    answers = Answer.objects.filter(name=user) 
     return render(request , 'app/profile.html',{'profile':user_profile,'question_asked':question_asked,'answers':answers,'total_likes':total_likes,'total_likes_on_yourpost':total_likes_on_yourpost})
     
 @login_required(login_url='login')
 def detail(request, question_id):    
     question = get_object_or_404(Questions, pk= question_id)
-    answer = Comment.objects.filter(question=question.id)
+    answer = Answer.objects.filter(question=question.id)
     return render(request, 'app/question_detail.html' ,{'question':question, 'answer':answer})
 
 
@@ -136,11 +144,11 @@ def answer(request, question_id):
     if request.method == 'POST':
         name = request.user
         content = request.POST.get('content')
-        my_answer = Comment(name=name,content=content,question=question)
+        my_answer = Answer(name=name,content=content,question=question)
         my_answer.save()
         messages.success(request, "your answer has been posted")
         return redirect('detail',question.id)
-    return render(request, 'app/answer.html')
+    return render(request, 'app/answer.html',)
 
 @login_required(login_url='login')
 def like(request, question_id):
@@ -179,7 +187,6 @@ def ask_question(request):
 
 
     
-@login_required(login_url='login')
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')

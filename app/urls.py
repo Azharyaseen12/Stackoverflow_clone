@@ -17,6 +17,7 @@ urlpatterns = [
     path("posted_answers/<int:id>", views.posted_answers, name="posted_answers"),    
     path("createprofile/<int:id>", views.create_profile, name="createprofile"),
     path("update_profile/<int:id>", views.update_profile, name="update_profile"),
+    path("user_posts/<int:id>", views.user_posts, name="user_posts"),
     path('search/',views.search,name='search'),
     path('delete_question/<int:id>',views.delete_question,name='delete_question'),
     path('contact/',views.contact,name='contact'),

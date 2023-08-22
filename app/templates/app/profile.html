@@ -21,10 +21,12 @@
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
+                <a href="{% url 'user_posts' user.id %}">
                 <div>
                   <p class="mb-1 h5">{{ question_asked|length }}</p>
                   <p class="small text-muted mb-0">Posts</p>
                 </div>
+              </a>
                 <a href="{% url 'posted_answers' user.id %}">
                 <div class="px-3 mx-2">
                   <p class="mb-1 h5">{{ answers|length }}</p>

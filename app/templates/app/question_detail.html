@@ -82,7 +82,7 @@
               <h3 id="fh3">{{question.title}}</h3>
               <hr>
               
-              <h6 id="fh6"><xmp>{{ question.content|safe }}</xmp></h6> 
+              <pre style="width: 90%;"><xmp>{{ question.content|safe }}</xmp></pre> 
             
                            
               {% if question.image.url %}
@@ -112,7 +112,8 @@
                   {% for comment in question.comment.all %}
                       <h3 style="font-weight: normal; font-size: 15px; border:1px solid black; border-radius:20px;">
                                                
-                        <xmp class="pl-4">{{comment.content|safe}}</xmp></h3>
+                        <!-- <xmp class="pl-4">{{comment.content|safe}}</xmp></h3> -->
+                        <pre style="width: 90%;"><xmp>{{comment.content|safe}}</xmp></pre> 
                       <h3 style="font-size: 10px;">Answered by: <i><b class="text-danger">{{comment.name}}</b> - On: {{comment.date_created|date:"j F, Y"}}</i></h3>
                       <hr>  
                   {% endfor %}
@@ -120,7 +121,11 @@
 
               
               <a class="btn btn-outline-primary" id="fa" href="{% url 'answer' question.id %}" style="text-decoration: none;">Answer Question</a>
+              {% if question.user.id == user.id %}
               <a style="text-decoration: none; " class="btn btn-outline-danger" href="{% url 'delete_question' question.id %}">Delete Question</a>
+              
+              {% endif %}
+             
           </div> <br><br>
               <!-- Answer Section -->
           
@@ -132,71 +137,3 @@
 </div>
 
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} 
-
-
-
-<body style="margin-top: 100px;">
-  {% if messages %}
-  {% for message in messages %}
-  <div {% if message.tags %}  class="alert alert-{{ message.tags }} my-4"{% endif %}>
-    <li class="">{{ message }}</li>
-   </div>
-  {% endfor %}
-  {% endif %}
-    <header>
-      <div>
-        <h1>question detail Page</h1>
-      </div>
-    </header>
-    <div
-      class="container my-4"
-      style="
-        border: 2px solid black;
-        border-radius: 20px;
-        background-color: rgb(245, 181, 43);
-      "
-    >
-      <h3 class="text-primary text-center">question: {{ question.title }}</h3>
-      <p>uploaded by: {{ question.user }}</p>
-      <p>content: {{ question.content }}</p>
-      <p class="text-right">
-        likes: {{ question.likes.count }} uploaded date: {{question.date_created }}
-      </p>
-      <a href="{% url 'like' question.id %}">
-        <button type="button" class="btn btn-primary">like</button>
-      </a>
-      <a href="{% url 'answer' question.id %}">
-        <button type="button" class="btn btn-primary">answer question</button>
-      </a>
-      <a href="{% url 'delete_question' question.id %}">
-        <button type="button" class="btn btn-primary">delete question</button>
-      </a>
-    </div>
-
-    <h3 class="text-center">answers</h3>
-    {% if answer %}
-    {% for answer in answer %}
-    <div
-      class="container my-4"
-      style="border: 2px solid black; border-radius: 20px"
-    >
-      <p>answered by:{{ answer.name }}</p>
-      <p>answer:{{ answer.content }}</p>
-    </div>
-    {% endfor %}
-    {% else %}
-    Not answer yet
-    {% endif %}
-  </body> {% endcomment %}

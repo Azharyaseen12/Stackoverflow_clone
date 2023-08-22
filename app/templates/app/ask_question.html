@@ -19,7 +19,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="your question"
+                      placeholder="Your Question"
                       name="title"
                       id="title"
                       required
@@ -27,7 +27,7 @@
                   </div>
                   <div class="form-group">
                     <label for="comment">details:</label>
-                    <textarea class="form-control" rows="5" placeholder="description for your problem" name="content" id="comment" required></textarea>
+                    <textarea class="form-control" rows="5" placeholder="Description for your problem" name="content" id="comment" required></textarea>
                   </div>   
                   <div class="d-flex flex-row align-items-center mb-4">
                     <div class="form-outline flex-fill mb-0">
@@ -54,35 +54,3 @@
 
   
 {% endblock %}
-<body style="margin-top: 100px;">
-  <div
-    class="container my-4"
-    style="
-      border: 2px solid rgb(59, 59, 99);
-      border-radius: 20px;
-      padding: 50px;
-    "
-  >
-    <form action="{% url 'ask_question' %}" method="post">
-      {% csrf_token %}
-      <h3 class="text-center text-primary">Ask Question</h3>
-      <div class="form-group">
-        <label for="title">Problem</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="your question"
-          name="title"
-          id="title"
-        />
-      </div>
-      <div class="form-group">
-          <label for="comment">details:</label>
-          <textarea class="form-control" rows="5" placeholder="description for your problem" name="content" id="comment"></textarea>
-      </div>
-      <div class="text-center">
-        <button class="btn btn-primary" type="submit">Post Questions</button>
-      </div>
-    </form>
-  </div>
-</body>

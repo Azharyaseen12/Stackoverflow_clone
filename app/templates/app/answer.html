@@ -62,7 +62,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="username"
+          placeholder="Username"
           id="name"
           aria-placeholder="name"
           name="name"
@@ -80,6 +80,10 @@
           rows="5"
           name="content"
         ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="content">Answer</label>
+        {{ tinymce }}
       </div>
       <div class="text-center">
         <button class="btn btn-primary my-4" type="submit">Post Answer</button>
