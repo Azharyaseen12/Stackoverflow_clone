@@ -23,6 +23,8 @@ class ChatAdmin(admin.ModelAdmin):
     list_display=('user','message','date_created')
 admin.site.register(Chat_Messages,ChatAdmin)
 
+admin.site.register(Message)
+admin.site.register(ChatRoom)
 
 admin.site.site_header = "CodeExchange Admin"
 admin.site.site_title = "CodeExchange Admin"

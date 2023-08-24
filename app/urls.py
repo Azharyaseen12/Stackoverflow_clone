@@ -23,5 +23,6 @@ urlpatterns = [
     path('contact/',views.contact,name='contact'),
     path('chat/',views.chat_home,name='chat'),
     path('personel_chat/',views.personel_chat,name='personel_chat'),
+    path('chat_page/<int:id>',views.chat_page,name='chat_page'),
 
 ]

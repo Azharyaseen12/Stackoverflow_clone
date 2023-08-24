@@ -16,7 +16,7 @@
             <ul class="list-unstyled mb-0">
               {% for user in users %} 
               <li class="p-2 border-bottom my-2" style="background-color: #eee">
-                <a href="" class="d-flex justify-content-between">
+                <a href="{% url 'chat_page' user.id %}" class="d-flex justify-content-between">
                   <div class="d-flex flex-row">
                     <img
                       src="{{ user.image.url }}"

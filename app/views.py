@@ -10,6 +10,13 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required(login_url='login')
+def chat_page(request,id):
+    user = request.user  
+    chat_messages = Message.objects.all()
+    return render(request, "app/chat_page.html" ,{'chat_messages':chat_messages})  
+
+
+@login_required(login_url='login')
 def personel_chat(request):
     current_user = request.user
     users = User_profile.objects.all().exclude(user=current_user)
