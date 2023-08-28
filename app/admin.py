@@ -24,7 +24,7 @@ class ChatAdmin(admin.ModelAdmin):
 admin.site.register(Chat_Messages,ChatAdmin)
 
 admin.site.register(Message)
-admin.site.register(ChatRoom)
+# admin.site.register(ChatRoom)
 
 admin.site.site_header = "CodeExchange Admin"
 admin.site.site_title = "CodeExchange Admin"

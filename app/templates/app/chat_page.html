@@ -2,7 +2,13 @@
 {% block content %}
 <section style="background-color: #eee;">
     <div class="container py-5">
-  
+      <div class="container py-5">
+        <div class="container text-center">
+          <a class="btn btn-outline-dark" href="{% url 'chat' %}">Random Chat</a>
+          <a class="btn btn-outline-dark" href="{% url 'personel_chat' %}">Personel Chat</a>
+          
+          {% comment %} <a class="btn btn-outline-dark" href="#">Button</a> {% endcomment %}
+        </div>
       <div class="row d-flex justify-content-center">
         <div class="">
   
@@ -19,19 +25,21 @@
             </div>
             <div id="chat-messages" class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
               
-              {% for chat_messages in chat_messages %}                            
-              <div class="d-flex flex-row justify-content-start">
-                <img src="{{ chat_messages.sender.profile.image.url }}"
-                  alt="avatar 1" style="width: 45px; height: 100%;border-radius:50%;">
-                <div>
-                  <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;"><span class="text-danger">{{ chat_messages.sender }}</span><br>{{ chat_messages.content }}</p>
-                </div>
+              {% for chat_messages in chat_messages %}  
+                       
+            <div class="d-flex flex-row justify-content-start">
+              <img src="{{ chat_messages.sender.profile.image.url }}"
+                alt="avatar 1" style="width: 45px; height: 100%; border-radius:50%;">
+              <div>
+                <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;"><span class="text-danger">{{ chat_messages.sender }}</span><br>{{ chat_messages.content }}</p>
+               
               </div>
-              {% endfor %}
+            </div>
+            {% endfor %}
            
               </div>
             <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-              {% comment %} <form action="" method="post">
+            <form action="" method="post">
               <div class="input-group mb-0">
                 
                   {% csrf_token %}
@@ -42,12 +50,8 @@
                 </button>
               
               </div>
-            </form> {% endcomment %}
-            <form id="message-form">
-              {% csrf_token %}
-              <input type="text" id="message-input" autocomplete="off">
-              <button type="submit">Send</button>
-          </form>
+            </form>
+            
             </div>
           </div>  
         </div>

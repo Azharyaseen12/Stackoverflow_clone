@@ -13,6 +13,7 @@ from django.core.paginator import Paginator
 def chat_page(request,id):
     user = request.user  
     chat_messages = Message.objects.all()
+    print(chat_messages)
     return render(request, "app/chat_page.html" ,{'chat_messages':chat_messages})  
 
 
@@ -189,7 +190,6 @@ def ask_question(request):
         messages.success(request, "your question has been posted successfully")
         return redirect('questions')          
     return render(request, 'app/ask_question.html')
-
 
 
 

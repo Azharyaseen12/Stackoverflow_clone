@@ -31,7 +31,7 @@ class User_profile(models.Model):
     bio = models.CharField(max_length=1000)
     city = models.CharField(max_length=1000, default="lahore")
     phone = models.IntegerField(null=True, blank=True)
-    image = models.ImageField( default='default.jpg', upload_to='profile_pic' )
+    image = models.ImageField( default='default.jpg',null= True, upload_to='profile_pic' )
     date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -56,14 +56,14 @@ class Chat_Messages(models.Model):
     
     
 
-class ChatRoom(models.Model):
-    name = models.CharField(max_length=100)
+# class ChatRoom(models.Model):
+#     name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class Message(models.Model):
-    room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
+    # room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
