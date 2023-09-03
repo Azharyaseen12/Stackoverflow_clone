@@ -10,17 +10,25 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required(login_url='login')
-def chat_page(request,id):
-    user = request.user  
-    chat_messages = Message.objects.all()
-    print(chat_messages)
-    return render(request, "app/chat_page.html" ,{'chat_messages':chat_messages})  
+def chat_page(request, id):
+    user = request.user
+    chat_messages = PersonelChat.objects.filter(sender=user, receiver_id=id)
+    
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        receiver = User_profile.objects.get(id=id)
+        send_message = PersonelChat(content=message, sender=user, receiver=receiver)
+        send_message.save()
+    
+    return render(request, "app/chat_page.html", {'chat_messages': chat_messages})
+
+
 
 
 @login_required(login_url='login')
 def personel_chat(request):
     current_user = request.user
-    users = User_profile.objects.all().exclude(user=current_user)
+    users = User_profile.objects.all().exclude(user=current_user)    
     return render(request, "app/personel_chat.html" ,{'users':users})  
 
 

@@ -23,9 +23,6 @@ class Answer(models.Model):
     def __str__(self):
         return f"{self.question.title}, {self.question.user}"
 
-
-
-
 class User_profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     bio = models.CharField(max_length=1000)
@@ -53,19 +50,22 @@ class Chat_Messages(models.Model):
 
     def __str__(self):
         return self.message
-    
-    
-
-# class ChatRoom(models.Model):
-#     name = models.CharField(max_length=100)
-
-#     def __str__(self):
-#         return self.name
+      
 
 class Message(models.Model):
     # room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = HTMLField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
+
+class PersonelChat(models.Model):
+    # room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)    
+    receiver = models.ForeignKey(User_profile, on_delete=models.CASCADE,default=None)    
+    content = HTMLField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -23,6 +23,10 @@ class ChatAdmin(admin.ModelAdmin):
     list_display=('user','message','date_created')
 admin.site.register(Chat_Messages,ChatAdmin)
 
+class PersonelChatAdmin(admin.ModelAdmin):
+    list_display=('sender','receiver','timestamp')
+admin.site.register(PersonelChat,PersonelChatAdmin)
+
 admin.site.register(Message)
 # admin.site.register(ChatRoom)
 

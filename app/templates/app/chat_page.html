@@ -26,7 +26,7 @@
             <div id="chat-messages" class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
               
               {% for chat_messages in chat_messages %}  
-                       
+                  
             <div class="d-flex flex-row justify-content-start">
               <img src="{{ chat_messages.sender.profile.image.url }}"
                 alt="avatar 1" style="width: 45px; height: 100%; border-radius:50%;">
@@ -34,7 +34,7 @@
                 <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;"><span class="text-danger">{{ chat_messages.sender }}</span><br>{{ chat_messages.content }}</p>
                
               </div>
-            </div>
+            </div> 
             {% endfor %}
            
               </div>
@@ -43,6 +43,7 @@
               <div class="input-group mb-0">
                 
                   {% csrf_token %}
+
                 <input type="text" class="form-control" name="message" placeholder="Type message"
                   aria-label="Recipient's username" aria-describedby="button-addon2" />
                 <button class="btn btn-warning" type="submit" id="button-addon2" style="padding-top: .55rem;">

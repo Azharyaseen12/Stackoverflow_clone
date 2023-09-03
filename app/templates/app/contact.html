@@ -4,8 +4,8 @@
 <section id="contact" class="contact" >
   {% if messages %}
   {% for message in messages %}
-  <div class="alert alert-success my-4">
-    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>Danger!</strong> {{ message }}</li>
+  <div {% if message.tags %}  class="alert alert-{{ message.tags }} my-4"{% endif %}>
+    <li class=""> {{ message }}</li>
    </div>
   {% endfor %}
   {% endif %}
@@ -82,10 +82,8 @@
                 <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
               </div>
 
-
                 <button class="btn btn-outline-dark" type="submit">Send Message</button>
-              
-
+         
             </div>
           </form>
         </div>
