@@ -166,6 +166,7 @@ def answer(request, question_id):
         return redirect('detail',question.id)
     return render(request, 'app/answer.html',)
 
+
 @login_required(login_url='login')
 def like(request, question_id):
     question = get_object_or_404(Questions, pk= question_id)      
