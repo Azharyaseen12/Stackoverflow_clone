@@ -12,14 +12,12 @@ from django.core.paginator import Paginator
 @login_required(login_url='login')
 def chat_page(request, id):
     user = request.user
-    chat_messages = PersonelChat.objects.filter(sender=user, receiver_id=id)
-    
+    chat_messages = PersonelChat.objects.filter(sender=user, receiver_id=id)    
     if request.method == 'POST':
         message = request.POST.get('message')
         receiver = User_profile.objects.get(id=id)
         send_message = PersonelChat(content=message, sender=user, receiver=receiver)
-        send_message.save()
-    
+        send_message.save()    
     return render(request, "app/chat_page.html", {'chat_messages': chat_messages})
 
 
